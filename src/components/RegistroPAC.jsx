@@ -21,7 +21,7 @@ import {
 
 import useForm from "../hooks/useForm";
 import { useState } from "react";
-import { usePAC } from "../context/AuthContext";
+import { usePAC, useAuth } from "../context/AuthContext";
 
 const initialState = {
   idproyecto: "",
@@ -49,6 +49,8 @@ const initialState = {
 const Formulario = () => {
   const { formValues, handleInput } = useForm(initialState);
   const { addPacs } = usePAC();
+  const {user} = useAuth();
+  console.log(user.id)
 
   const {
     idproyecto,
@@ -75,7 +77,7 @@ const Formulario = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    addPacs(formValues);
+    addPacs(formValues, user.id);
   };
 
   const inputStyle = {

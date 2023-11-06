@@ -29,7 +29,7 @@ export const PACProvider = ({ children }) => {
   }
 
   const searchPacs = async (text) => {
-    const { error, data } = await supabase.from("actividades").select().like("detalle", '%'+text+'%');
+    const { error, data } = await supabase.from("actividades").select().like("detalle", '%'+text+'%').eq("usuario", user);
     //const result = await supabase.from("actividades").select().eq("columna", "dato").eq("columna", "dato").order("id", {ascending: true})
     if (error) throw error;
     setPacs(data);
@@ -212,7 +212,7 @@ export const PACProvider = ({ children }) => {
   }
 }
 
-  const addPacs = async (formValues) => {
+  const addPacs = async (formValues, id) => {
 
     const {
       idproyecto,
@@ -259,6 +259,7 @@ export const PACProvider = ({ children }) => {
         costounitario: costounitario,
         subtotal: cantidad * costounitario,
         catalogoelectronico: catalogoelectronico,
+        usuario: id
       });
 
       if (error) throw error;
