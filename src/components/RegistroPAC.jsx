@@ -50,7 +50,7 @@ const Formulario = () => {
   const { formValues, handleInput } = useForm(initialState);
   const { addPacs } = usePAC();
   const {user} = useAuth();
-  console.log(user.id)
+  //console.log(user.id)
 
   const {
     idproyecto,

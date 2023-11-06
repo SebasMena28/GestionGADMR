@@ -97,8 +97,8 @@ const Welcome = () => {
                   <Flex flex="1" gap={4} alignItems="center" flexWrap="wrap">
                     <Avatar bg="#223059" />
                     <Box>
-                      <Heading size="sm">{/*usuario[0].nombre*/} Nombre</Heading>
-                      <Text>{/*usuario[0].departamento*/} Direccion</Text>
+                      <Heading size="sm">{usuario[0].nombre} </Heading>
+                      <Text>{usuario[0].departamento} </Text>
                     </Box>
                   </Flex>
                 </Flex>
