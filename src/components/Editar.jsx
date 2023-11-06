@@ -31,6 +31,8 @@ import { usePAC } from "../context/AuthContext";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { logout } from "../services/auth";
+
 
 import {
   SearchIcon,
@@ -200,6 +202,7 @@ const EditarForm = () => {
                   w="230px"
                   bgColor="red.50"
                   color="red.600"
+                  onClick={() => logout()}
                 >
                   Cerrar sesión
                 </Button>

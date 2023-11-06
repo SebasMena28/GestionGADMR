@@ -29,6 +29,8 @@ import {
 import useForm from "../hooks/useForm";
 import { useState } from "react";
 import { usePAC, useAuth } from "../context/AuthContext";
+import { logout } from "../services/auth";
+
 
 import {
   SearchIcon,
@@ -194,6 +196,7 @@ const Formulario = () => {
                   w="230px"
                   bgColor="red.50"
                   color="red.600"
+                  onClick={() => logout()}
                 >
                   Cerrar sesión
                 </Button>

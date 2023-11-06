@@ -27,12 +27,14 @@ import {
   TableCaption,
   TableContainer,
   Td,
+  FormControl,
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
 import PACList from "./PACList";
 import { usePAC } from "../context/AuthContext";
 import useForm from "../hooks/useForm";
+import { logout } from "../services/auth";
 
 import {
   SearchIcon,
@@ -66,7 +68,7 @@ const Vista = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    await searchPacs(buscar);
+    await searchPacs(buscar, user.id);
   };
 
   return (
@@ -78,23 +80,34 @@ const Vista = () => {
           </GridItem>
 
           <GridItem colSpan={3}>
-            <InputGroup mt="15px" pl="10px" pr="10px">
-              <InputLeftElement pointerEvents="none" pl="20px">
-                <SearchIcon color="#223059"></SearchIcon>
-              </InputLeftElement>
-              <Input type="text" placeholder="Buscar ..."></Input>
-              <InputRightElement width="4.5rem" p="5px" mr="6px">
-                <Button
-                  colorScheme="whiteAlpha"
-                  color="#223059"
-                  borderColor="#223059"
-                  border="1px"
-                  _hover={{ bg: "#223059", color: "lightgray" }}
-                >
-                  Buscar
-                </Button>
-              </InputRightElement>
-            </InputGroup>
+            <form onSubmit={handleSearch}>
+              <FormControl id="buscar">
+                <InputGroup mt="15px" pl="10px" pr="10px">
+                  <InputLeftElement pointerEvents="none" pl="20px">
+                    <SearchIcon color="#223059"></SearchIcon>
+                  </InputLeftElement>
+                  <Input
+                    type="text"
+                    name="buscar"
+                    placeholder="Buscar ..."
+                    value={buscar}
+                    onChange={handleInput}
+                  ></Input>
+                  <InputRightElement width="4.5rem" p="5px" mr="6px">
+                    <Button
+                      colorScheme="whiteAlpha"
+                      color="#223059"
+                      borderColor="#223059"
+                      border="1px"
+                      _hover={{ bg: "#223059", color: "lightgray" }}
+                      type="submit"
+                    >
+                      Buscar
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+            </form>
           </GridItem>
 
           <GridItem colSpan={1} align="end" mr="20px" mt="12px">
@@ -111,12 +124,8 @@ const Vista = () => {
                     <Flex flex="1" gap={4} alignItems="center" flexWrap="wrap">
                       <Avatar bg="#223059" />
                       <Box>
-                        <Heading fontSize="sm">
-                          {/*usuario[0].nombre*/} 
-                        </Heading>
-                        <Text fontSize="sm">
-                          {/*usuario[0].departamento*/} 
-                        </Text>
+                        <Heading fontSize="sm">{/*usuario[0].nombre*/}</Heading>
+                        <Text fontSize="sm">{/*usuario[0].departamento*/}</Text>
                       </Box>
                     </Flex>
                   </Flex>
@@ -153,7 +162,7 @@ const Vista = () => {
                   color="gray.600"
                   isDisabled
                 >
-                  <Link >Evaluación</Link>
+                  <Link>Evaluación</Link>
                 </Button>
               </Stack>
               <Stack direction="row" spacing={4} mb="10px">
@@ -163,6 +172,7 @@ const Vista = () => {
                   w="230px"
                   bgColor="red.50"
                   color="red.600"
+                  onClick={() => logout()}
                 >
                   Cerrar sesión
                 </Button>
@@ -204,7 +214,7 @@ const Vista = () => {
                       )}
                       {pacs.map((pac) => (
                         <Tr key={pac.idactividad}>
-                          <Td>{pac.detalle}</Td>
+                          <Td>{pac.detalle.slice(0, 25) + "..."}</Td>
                           <Td>{pac.fechacreacion}</Td>
                           <Td>Preparatoria</Td>
                           <Td>
@@ -256,4 +266,4 @@ const Vista = () => {
   );
 };
 
-export default Vista;
+export default Vista;

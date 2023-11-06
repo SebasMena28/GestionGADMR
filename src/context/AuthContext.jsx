@@ -24,14 +24,15 @@ export const PACProvider = ({ children }) => {
   const getUsuario = async (id) => {
     const { error, data } = await supabase.from("persona").select().eq("auth", id);
     if (error) throw error;
-    console.log(data)
+    //console.log(data)
     setUsuario(data);
   }
 
   const searchPacs = async (text, user) => {
+    console.log(text)
     const { error, data } = await supabase.from("actividades").select().like("detalle", '%'+text+'%').eq("usuario", user);
-    //const result = await supabase.from("actividades").select().eq("columna", "dato").eq("columna", "dato").order("id", {ascending: true})
     if (error) throw error;
+    console.log(data)
     setPacs(data);
   };
 
