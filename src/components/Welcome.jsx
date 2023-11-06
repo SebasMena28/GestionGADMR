@@ -25,13 +25,13 @@ import {
   StarIcon,
   SmallAddIcon,
   CheckIcon,
+  CloseIcon
 } from "@chakra-ui/icons";
 
 import { logout } from "../services/auth";
 import { useAuth, usePAC } from "../context/AuthContext";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-
 const Welcome = () => {
   const {user} = useAuth();
   const { usuario, getUsuario } = usePAC();
@@ -97,9 +97,11 @@ const Welcome = () => {
                   <Flex flex="1" gap={4} alignItems="center" flexWrap="wrap">
                     <Avatar bg="#223059" />
                     <Box>
-                      <Heading size="sm">{usuario[0].nombre} </Heading>
-                      <Text>{usuario[0].departamento} </Text>
-                    </Box>
+                        <Heading fontSize="sm">
+                          {usuario[0].nombre} 
+                        </Heading>
+                        <Text fontSize="sm">{usuario[0].departamento} </Text>
+                      </Box>
                   </Flex>
                 </Flex>
               </CardHeader>
@@ -137,27 +139,29 @@ const Welcome = () => {
                 <Link to="/PAC/documentar">Evaluación</Link>
               </Button>
             </Stack>
-            <Button
-              size="lg"
-              color="red"
-              rounded={30}
-              borderColor="red"
-              border="1px"
-              _hover={{ bg: "red", color: "lightgray" }}
-              onClick={() => logout()}
+            <Stack direction="row" spacing={4} mb="10px">
+              <Button
+                leftIcon={<CloseIcon />}
+                variant="solid"
+                w="230px"
+                bgColor="red.50"
+                color="red.600"
+                onClick={() => logout()}
               >
-                Cerrar Sesion
-            </Button>
+                Cerrar sesión
+              </Button>
+            </Stack>
+            
           </VStack>
         </Box>
 
         <Box width="80%">
           <AspectRatio ratio={16 / 9} maxH="100vh">
-            <iframe src="https://lookerstudio.google.com/embed/reporting/52cfd912-8375-4da8-812a-465ace9f8938/page/p_nk6k7qms8c"></iframe>
+            <iframe src="https://lookerstudio.google.com/embed/reporting/908fe3d0-3f48-4fdd-a465-96ce2acf66c1/page/p_nk6k7qms8c "></iframe>
           </AspectRatio>
         </Box>
       </HStack>
-    </Box>
+    </Box>
   </>
 
   );

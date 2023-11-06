@@ -15,7 +15,7 @@ import {
 
 import { Link } from "react-router-dom";
 import PACList from "./PACList";
-import { usePAC } from "../context/AuthContext";
+import { usePAC, useAuth } from "../context/AuthContext";
 import useForm from "../hooks/useForm";
 
 const initialState = {
@@ -23,13 +23,14 @@ const initialState = {
 };
 
 const Vista = () => {
+  const {user} = useAuth();
   const { searchPacs } = usePAC();
   const { formValues, handleInput } = useForm(initialState);
   const { buscar } = formValues;
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    await searchPacs(buscar);
+    await searchPacs(buscar, user.id);
   };
 
   return (

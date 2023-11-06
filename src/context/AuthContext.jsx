@@ -28,7 +28,7 @@ export const PACProvider = ({ children }) => {
     setUsuario(data);
   }
 
-  const searchPacs = async (text) => {
+  const searchPacs = async (text, user) => {
     const { error, data } = await supabase.from("actividades").select().like("detalle", '%'+text+'%').eq("usuario", user);
     //const result = await supabase.from("actividades").select().eq("columna", "dato").eq("columna", "dato").order("id", {ascending: true})
     if (error) throw error;

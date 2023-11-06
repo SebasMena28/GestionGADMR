@@ -19,7 +19,7 @@ function PACList() {
       <Box display="flex" flexWrap="wrap" mb="5px">
       {pacs.length === 0 && <p>No se han encontrado registros</p>}
         {pacs.map((pac) => (
-          <PACCard pac={pac} key={pac.idactividad}/>
+          <PACCard pac={pac} key={pac.idactividad}/> //aqui pones la fila
         ))}
       </Box>
     </>
