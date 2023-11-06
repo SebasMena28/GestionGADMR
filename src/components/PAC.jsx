@@ -1,111 +1,259 @@
 import {
   Grid,
   GridItem,
-  Center,
   Box,
   Heading,
   Button,
-  FormControl,
-  FormLabel,
   Input,
   Stack,
   Image,
   Divider,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  HStack,
+  VStack,
+  Card,
+  CardHeader,
+  Flex,
+  Avatar,
+  StackDivider,
+  Text,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  TableCaption,
+  TableContainer,
+  Td,
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
 import PACList from "./PACList";
-import { usePAC, useAuth } from "../context/AuthContext";
+import { usePAC } from "../context/AuthContext";
 import useForm from "../hooks/useForm";
+
+import {
+  SearchIcon,
+  StarIcon,
+  SmallAddIcon,
+  CloseIcon,
+  CheckIcon,
+  DeleteIcon,
+  EditIcon,
+  AttachmentIcon,
+} from "@chakra-ui/icons";
+
+import PACCard from "./CARD";
+import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const initialState = {
   buscar: "",
 };
 
 const Vista = () => {
-  const {user} = useAuth();
   const { searchPacs } = usePAC();
   const { formValues, handleInput } = useForm(initialState);
   const { buscar } = formValues;
+  const { pacs, getPacs } = usePAC();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    getPacs(user.id);
+  }, []);
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    await searchPacs(buscar, user.id);
+    await searchPacs(buscar);
   };
 
   return (
     <>
-    <form onSubmit={handleSearch}>
-      <Center placeContent="center" w="auto">
-        <Box p="5" rounded="md" bg="white" w="85%" height="auto">
-          <Stack>
-            <Image
-              src="/public/logoRiobamba.png"
-              maxW="90px"
-              mb="1"
-              mx="auto"
-            ></Image>
-            <Heading as="h1" mb="10px">
-              <Center>Actividades de PAC</Center>
-            </Heading>
-          </Stack>
-          <Divider></Divider>
-          <Grid
-            mt="10px"
-            templateRows="repeat(1, 1fr)"
-            templateColumns="repeat(4, 1fr)"
-            gap={4}
-          >
-            <GridItem colSpan={1}>
-              <Button
-                ml="15px"
-                size="lg"
-                color="#223059"
-                rounded={30}
-                borderColor="#223059"
-                border="1px"
-                _hover={{ bg: "#223059", color: "lightgray" }}
-                mt="25px"
-              >
-                <Link to="/PAC/registro"> Registrar actividad</Link>
-              </Button>
-            </GridItem>
-              <GridItem colSpan={1}>
-                <FormControl mb="10px" id="buscar">
-                  <FormLabel>Buscar Actividad: </FormLabel>
-                  <Input
-                    type="text"
-                    name="buscar"
-                    value={buscar}
-                    onChange={handleInput}
-                  />
-                </FormControl>
-              </GridItem>
-              <GridItem colSpan={1}>
+      <Box>
+        <Grid templateColumns="repeat(5, 1fr)" gap={3} height="75px">
+          <GridItem colSpan={1} ml="20px">
+            <Image src="/public/logoRiobamba.png" maxW="75px"></Image>
+          </GridItem>
+
+          <GridItem colSpan={3}>
+            <InputGroup mt="15px" pl="10px" pr="10px">
+              <InputLeftElement pointerEvents="none" pl="20px">
+                <SearchIcon color="#223059"></SearchIcon>
+              </InputLeftElement>
+              <Input type="text" placeholder="Buscar ..."></Input>
+              <InputRightElement width="4.5rem" p="5px" mr="6px">
                 <Button
-                  size="lg"
+                  colorScheme="whiteAlpha"
                   color="#223059"
-                  rounded={30}
                   borderColor="#223059"
                   border="1px"
                   _hover={{ bg: "#223059", color: "lightgray" }}
-                  mt="25px"
-                  type="submit"
                 >
-                  Buscar Actividad
+                  Buscar
                 </Button>
-              </GridItem>
-            
-          </Grid>
-          <Divider></Divider>
-          <Box position="relative">
-            <PACList></PACList>
+              </InputRightElement>
+            </InputGroup>
+          </GridItem>
+
+          <GridItem colSpan={1} align="end" mr="20px" mt="12px">
+            <Avatar bg="#223059" />
+          </GridItem>
+        </Grid>
+
+        <HStack divider={<StackDivider borderColor="gray.200" />}>
+          <Box w="20%" pl="20px" pr="20px" h="92vh" bg="white">
+            <VStack>
+              <Card maxW="md" bg="blackAlpha.100" mb="20px">
+                <CardHeader>
+                  <Flex spacing="4">
+                    <Flex flex="1" gap={4} alignItems="center" flexWrap="wrap">
+                      <Avatar bg="#223059" />
+                      <Box>
+                        <Heading fontSize="sm">
+                          {/*usuario[0].nombre*/} 
+                        </Heading>
+                        <Text fontSize="sm">
+                          {/*usuario[0].departamento*/} 
+                        </Text>
+                      </Box>
+                    </Flex>
+                  </Flex>
+                </CardHeader>
+              </Card>
+              <Stack direction="row" spacing={4} mb="10px">
+                <Button
+                  leftIcon={<StarIcon />}
+                  variant="solid"
+                  w="230px"
+                  bgColor="gray.50"
+                  color="gray.600"
+                >
+                  <Link to="/inicio">Dashboard</Link>
+                </Button>
+              </Stack>
+              <Stack direction="row" spacing={4} mb="10px">
+                <Button
+                  leftIcon={<SmallAddIcon />}
+                  variant="solid"
+                  w="230px"
+                  bgColor="blue.50"
+                  color="blue.600"
+                >
+                  <Link to="/PAC">Requerimientos</Link>
+                </Button>
+              </Stack>
+              <Stack direction="row" spacing={4} mb="10px">
+                <Button
+                  leftIcon={<CheckIcon />}
+                  variant="solid"
+                  w="230px"
+                  bgColor="gray.50"
+                  color="gray.600"
+                  isDisabled
+                >
+                  <Link >Evaluación</Link>
+                </Button>
+              </Stack>
+              <Stack direction="row" spacing={4} mb="10px">
+                <Button
+                  leftIcon={<CloseIcon />}
+                  variant="solid"
+                  w="230px"
+                  bgColor="red.50"
+                  color="red.600"
+                >
+                  Cerrar sesión
+                </Button>
+              </Stack>
+            </VStack>
           </Box>
-        </Box>
-      </Center>
-      </form>
+
+          <Box width="80%">
+            <VStack width="100%">
+              <Stack direction="row" spacing="475px" mb="10px" width="90%">
+                <Text fontSize="4xl">Requerimientos de PAC</Text>
+                <Button
+                  leftIcon={<SmallAddIcon />}
+                  variant="solid"
+                  w="230px"
+                  bgColor="blue.50"
+                  color="blue.600"
+                >
+                  <Link to="/PAC/registro">Nuevo Requerimiento</Link>
+                </Button>
+              </Stack>
+              <Divider width="90%"></Divider>
+              <Stack direction="row" spacing="500px" mb="10px" width="90%">
+                <TableContainer width="100%">
+                  <Table variant="striped" colorScheme="blue">
+                    <TableCaption>Requerimientos de PAC</TableCaption>
+                    <Thead>
+                      <Tr>
+                        <Th>Detalle</Th>
+                        <Th>Fecha de creación</Th>
+                        <Th>Etapa</Th>
+                        <Th>Documentar</Th>
+                        <Th>Acciones</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {pacs.length === 0 && (
+                        <p>No se han encontrado registros</p>
+                      )}
+                      {pacs.map((pac) => (
+                        <Tr key={pac.idactividad}>
+                          <Td>{pac.detalle}</Td>
+                          <Td>{pac.fechacreacion}</Td>
+                          <Td>Preparatoria</Td>
+                          <Td>
+                            <Button
+                              variant="solid"
+                              w="150px"
+                              bgColor="gray.50"
+                              color="gray.600"
+                              mr="10px"
+                            >
+                              <Link to="/PAC/documentar/:id">
+                                <AttachmentIcon /> Documentar
+                              </Link>
+                            </Button>
+                          </Td>
+                          <Td>
+                            <Button
+                              variant="solid"
+                              w="50px"
+                              bgColor="yellow.50"
+                              color="yellow.600"
+                              mr="10px"
+                            >
+                              <Link to="/PAC/editar/:objeto">
+                                <EditIcon />
+                              </Link>
+                            </Button>
+                            {/* el boton de eliminar no cache como hacer */}
+                            <Button
+                              variant="solid"
+                              w="50px"
+                              bgColor="red.50"
+                              color="red.600"
+                            >
+                              <DeleteIcon />
+                            </Button>
+                          </Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+              </Stack>
+            </VStack>
+          </Box>
+        </HStack>
+      </Box>
     </>
   );
 };
 
-export default Vista;
+export default Vista;

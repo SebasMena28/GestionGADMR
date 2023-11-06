@@ -98,10 +98,10 @@ const Welcome = () => {
                     <Avatar bg="#223059" />
                     <Box>
                         <Heading fontSize="sm">
-                          {usuario[0].nombre} 
+                          {/*usuario[0].nombre*/} 
                         </Heading>
-                        <Text fontSize="sm">{usuario[0].departamento} </Text>
-                      </Box>
+                        <Text fontSize="sm">{/*usuario[0].departamento*/} </Text>
+                    </Box>
                   </Flex>
                 </Flex>
               </CardHeader>
