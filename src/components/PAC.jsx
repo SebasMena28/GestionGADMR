@@ -60,7 +60,16 @@ const Vista = () => {
   const { formValues, handleInput } = useForm(initialState);
   const { buscar } = formValues;
   const { pacs, getPacs } = usePAC();
+  const {deletePacs,  getPacsbyId} = usePAC()
   const { user } = useAuth();
+
+  /*const borrar = () => {
+    deletePacs(pac.idactividad, pac.detalle);
+  };
+
+  const editar = () => {
+        getPacsbyId(pac.idactividad)
+  };*/
 
   useEffect(() => {
     getPacs(user.id);
@@ -124,7 +133,7 @@ const Vista = () => {
                     <Flex flex="1" gap={4} alignItems="center" flexWrap="wrap">
                       <Avatar bg="#223059" />
                       <Box>
-                        <Heading fontSize="sm">{/*usuario[0].nombre*/}</Heading>
+                        <Heading fontSize="sm">{/*usuario[0].nombre*/} </Heading>
                         <Text fontSize="sm">{/*usuario[0].departamento*/}</Text>
                       </Box>
                     </Flex>
@@ -248,6 +257,7 @@ const Vista = () => {
                               w="50px"
                               bgColor="red.50"
                               color="red.600"
+                              onClick={() => deletePacs(pac.idactividad, pac.detalle)}
                             >
                               <DeleteIcon />
                             </Button>

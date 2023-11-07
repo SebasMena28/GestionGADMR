@@ -41,11 +41,9 @@ import {
   SmallAddIcon,
   CloseIcon,
   CheckIcon,
-  DeleteIcon,
-  EditIcon,
+  DownloadIcon,
   AttachmentIcon,
 } from "@chakra-ui/icons";
-import { logout } from "../services/auth";
 
 const Detalles = () => {
   const { id } = useParams();
@@ -146,7 +144,6 @@ const Detalles = () => {
                   w="230px"
                   bgColor="red.50"
                   color="red.600"
-                  onClick={() => logout()}
                 >
                   Cerrar sesión
                 </Button>
@@ -156,68 +153,43 @@ const Detalles = () => {
 
           <Box width="80%">
             <VStack width="100%">
-              <Stack direction="row" spacing="475px" mb="10px" width="90%">
-                <Text fontSize="4xl">Requerimientos de PAC</Text>
+              <Stack direction="row" spacing="450px" mb="10px" width="90%">
+                <Text fontSize="xl">Documentos del requerimiento</Text>
                 <Button
-                  leftIcon={<SmallAddIcon />}
+                  leftIcon={<AttachmentIcon />}
                   variant="solid"
                   w="230px"
                   bgColor="blue.50"
                   color="blue.600"
                 >
-                  <Link to="/PAC/registro">Nuevo Requerimiento</Link>
+                  Subir documento
                 </Button>
               </Stack>
               <Divider width="90%"></Divider>
               <Stack direction="row" spacing="500px" mb="10px" width="90%">
                 <TableContainer width="100%">
                   <Table variant="striped" colorScheme="blue">
-                    <TableCaption>Requerimientos de PAC</TableCaption>
+                    <TableCaption>Documentos del requerimiento</TableCaption>
                     <Thead>
                       <Tr>
                         <Th>Detalle</Th>
-                        <Th>Etapa</Th>
-                        <Th>Subir documento</Th>
-                        <Th>Acciones</Th>
+
+                        <Th>Descargar documento</Th>
                       </Tr>
                     </Thead>
                     <Tbody>
                       <Tr>
-                        <Td>Algo</Td>
-                        <Td>Preparatoria</Td>
+                        <Td>Aquí va el nombre del documento</Td>
+
                         <Td>
                           <Button
-                            onClick={onOpen}
+                            leftIcon={<DownloadIcon />}
                             variant="solid"
-                            w="150px"
-                            bgColor="gray.50"
-                            color="gray.600"
-                            mr="10px"
+                            w="130px"
+                            bgColor="green.50"
+                            color="green.600"
                           >
-                            {" "}
-                            <AttachmentIcon /> Subir documento
-                          </Button>
-                        </Td>
-                        <Td>
-                          <Button
-                            variant="solid"
-                            w="50px"
-                            bgColor="yellow.50"
-                            color="yellow.600"
-                            mr="10px"
-                          >
-                            <Link to="/PAC/editar/:objeto">
-                              <EditIcon />
-                            </Link>
-                          </Button>
-                          {/* el boton de eliminar no cache como hacer */}
-                          <Button
-                            variant="solid"
-                            w="50px"
-                            bgColor="red.50"
-                            color="red.600"
-                          >
-                            <DeleteIcon />
+                            Descargar
                           </Button>
                         </Td>
                       </Tr>
@@ -251,4 +223,4 @@ const Detalles = () => {
   );
 };
 
-export default Detalles; 
+export default Detalles;

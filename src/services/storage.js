@@ -66,7 +66,7 @@ export const downloadFile = async (name, path) => {
 export const urlFile = async (name, path) => {
   try {
     const { data, error } = await supabase.storage
-      .from(name)
+      .from("Documentos")
       .createSignedUrl(path, 180);
     if (error) throw new Error("Hay un problema :(");
     return data;
