@@ -179,15 +179,7 @@ const Formulario = () => {
                 </Button>
               </Stack>
               <Stack direction="row" spacing={4} mb="10px">
-                <Button
-                  leftIcon={<CheckIcon />}
-                  variant="solid"
-                  w="230px"
-                  bgColor="gray.50"
-                  color="gray.600"
-                >
-                  <Link to="/PAC/documentar">Evaluación</Link>
-                </Button>
+                
               </Stack>
               <Stack direction="row" spacing={4} mb="10px">
                 <Button

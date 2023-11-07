@@ -43,7 +43,7 @@ export const PACProvider = ({ children }) => {
       .eq("idactividad", id);
     //const result = await supabase.from("actividades").select().eq("columna", "dato").eq("columna", "dato").order("id", {ascending: true})
     if (error) throw error;
-    console.log(data);
+    //console.log(data);
     navigate(`/PAC/editar/:${data[0].idactividad}`);
   };
 
@@ -53,10 +53,10 @@ export const PACProvider = ({ children }) => {
       .select()
       .eq("idactividad", id);
     if (error) throw error;
-    console.log(data)
+    //console.log(data)
     setPacs(data);
     //setPacs(pacs.filter((pac) => pac.idactividad === id));
-    console.log(pacs)
+    //console.log(pacs)
   };
 
   const deletePacs = async (id, name) => {
@@ -114,7 +114,7 @@ export const PACProvider = ({ children }) => {
           anio: anio,
           partidapresupuestaria: partidapresupuestaria,
           cpc: cpc,
-          detalle: detalle,
+          detalle: quitarTildesYCaracteresEspeciales(detalle).toUpperCase(),
           cantidad: cantidad,
           costounitario: costounitario,
           subtotal: cantidad * costounitario,
@@ -215,6 +215,10 @@ export const PACProvider = ({ children }) => {
   }
 }
 
+function quitarTildesYCaracteresEspeciales(texto) {
+  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
   const addPacs = async (formValues, id) => {
 
     const {
@@ -257,7 +261,7 @@ export const PACProvider = ({ children }) => {
         anio: anio,
         partidapresupuestaria: partidapresupuestaria,
         cpc: cpc,
-        detalle: detalle,
+        detalle: quitarTildesYCaracteresEspeciales(detalle).toUpperCase(),
         cantidad: cantidad,
         costounitario: costounitario,
         subtotal: cantidad * costounitario,
@@ -266,7 +270,7 @@ export const PACProvider = ({ children }) => {
       });
 
       if (error) throw error;
-      await createDocs(detalle);
+      await createDocs(quitarTildesYCaracteresEspeciales(detalle).toUpperCase());
       navigate("/PAC", { replace: true });
     } catch (error) {
       console.log(error);

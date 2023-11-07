@@ -77,7 +77,8 @@ const Vista = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    await searchPacs(buscar, user.id);
+    //console.log(buscar.toUpperCase())
+    await searchPacs(buscar.toUpperCase(), user.id);
   };
 
   return (
@@ -124,9 +125,9 @@ const Vista = () => {
           </GridItem>
         </Grid>
 
-        <HStack divider={<StackDivider borderColor="gray.200" />}>
-          <Box w="20%" pl="20px" pr="20px" h="92vh" bg="white">
-            <VStack>
+        <HStack divider={<StackDivider borderColor="gray.200" />} align>
+          <Box w="20%" pl="20px" pr="20px" h="auto"  align="top" >
+            <VStack  align="top">
               <Card maxW="md" bg="blackAlpha.100" mb="20px">
                 <CardHeader>
                   <Flex spacing="4">
@@ -163,16 +164,7 @@ const Vista = () => {
                 </Button>
               </Stack>
               <Stack direction="row" spacing={4} mb="10px">
-                <Button
-                  leftIcon={<CheckIcon />}
-                  variant="solid"
-                  w="230px"
-                  bgColor="gray.50"
-                  color="gray.600"
-                  isDisabled
-                >
-                  <Link>Evaluación</Link>
-                </Button>
+                
               </Stack>
               <Stack direction="row" spacing={4} mb="10px">
                 <Button

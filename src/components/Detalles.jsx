@@ -35,6 +35,8 @@ import ListFiles from "./ListFiles";
 import { useParams } from "react-router-dom";
 import useFiles from "../hooks/useFiles";
 import ModalFile from "./modals/modalFile";
+import fileDownload from 'js-file-download'
+import { downloadFile, urlFile } from "../services/storage";
 import {
   SearchIcon,
   StarIcon,
@@ -43,12 +45,20 @@ import {
   CheckIcon,
   DownloadIcon,
   AttachmentIcon,
+  EditIcon,
 } from "@chakra-ui/icons";
 
 const Detalles = () => {
   const { id } = useParams();
   const { files, uploadFile, saveFile } = useFiles(id);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const download = async (id, name) => {
+    //console.log("Descargando...")
+    const result = await downloadFile(id, name);
+    fileDownload(result, name)
+    //console.log(result);
+}
 
   return (
     <>
@@ -83,9 +93,9 @@ const Detalles = () => {
           </GridItem>
         </Grid>
 
-        <HStack divider={<StackDivider borderColor="gray.200" />}>
-          <Box w="20%" pl="20px" pr="20px" h="92vh" bg="white">
-            <VStack>
+        <HStack divider={<StackDivider borderColor="gray.200" />} align>
+          <Box w="20%" pl="20px" pr="20px" h="auto" align="top">
+            <VStack align="top">
               <Card maxW="md" bg="blackAlpha.100" mb="20px">
                 <CardHeader>
                   <Flex spacing="4">
@@ -125,18 +135,7 @@ const Detalles = () => {
                   <Link to="/PAC">Requerimientos</Link>
                 </Button>
               </Stack>
-              <Stack direction="row" spacing={4} mb="10px">
-                <Button
-                  leftIcon={<CheckIcon />}
-                  variant="solid"
-                  w="230px"
-                  bgColor="gray.50"
-                  color="gray.600"
-                  isDisabled
-                >
-                  <Link>Evaluación</Link>
-                </Button>
-              </Stack>
+              <Stack direction="row" spacing={4} mb="10px"></Stack>
               <Stack direction="row" spacing={4} mb="10px">
                 <Button
                   leftIcon={<CloseIcon />}
@@ -161,6 +160,7 @@ const Detalles = () => {
                   w="230px"
                   bgColor="blue.50"
                   color="blue.600"
+                  onClick={onOpen}
                 >
                   Subir documento
                 </Button>
@@ -173,26 +173,34 @@ const Detalles = () => {
                     <Thead>
                       <Tr>
                         <Th>Detalle</Th>
-
                         <Th>Descargar documento</Th>
                       </Tr>
                     </Thead>
                     <Tbody>
-                      <Tr>
-                        <Td>Aquí va el nombre del documento</Td>
-
-                        <Td>
+                      
+                        {files.length === 0 && (
+                          <p>No se han encontrado registros</p>
+                        )}
+                        {files.map((pac) => (
+                          <Tr key={pac.id}>
+                            <Td>{pac.name}</Td>
+                            <Td>
                           <Button
                             leftIcon={<DownloadIcon />}
                             variant="solid"
                             w="130px"
                             bgColor="green.50"
                             color="green.600"
+                            onClick={download(pac.id, pac.name)}
                           >
                             Descargar
                           </Button>
                         </Td>
-                      </Tr>
+                          </Tr>
+                        ))}
+
+                        
+                      
                     </Tbody>
                   </Table>
                 </TableContainer>
@@ -202,7 +210,16 @@ const Detalles = () => {
         </HStack>
       </Box>
 
-      <Center placeContent="center" w="auto" h="auto" mt="25px" mb="15px">
+      {isOpen && (
+            <ModalFile
+              isOpen={isOpen}
+              onClose={onClose}
+              uploadFile={uploadFile}
+              saveFile={saveFile}
+            />
+          )}
+
+      {/* <Center placeContent="center" w="auto" h="auto" mt="25px" mb="15px">
         <Box boxShadow="2xl" p="6" w="800px" h="auto" rounded="md" bg="white">
           <Heading size="2xl" mb="25px">
             <Center>DOCUMENTACION DE PAC #ID </Center>
@@ -218,9 +235,9 @@ const Detalles = () => {
             />
           )}
         </Box>
-      </Center>
+      </Center> */}
     </>
   );
 };
 
-export default Detalles;
+export default Detalles;
