@@ -13,7 +13,7 @@ export const listDocs = async () => {
 export const createDocs = async (name) => {
   //console.log(name);
   try {
-    const { data, error } = await supabase.storage.createBucket(name, {
+    const { data, error } = await supabase.storage.createBucket(name.slice(0,15), {
       public: true, // default: false
     });
     if (error) throw error;
