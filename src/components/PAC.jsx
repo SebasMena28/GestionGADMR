@@ -234,7 +234,7 @@ const Vista = () => {
                               color="gray.600"
                               mr="10px"
                             >
-                              <Link to="/PAC/documentar/:id">
+                              <Link to={"/PAC/documentar/" + pac.detalle.slice(0,15)}>
                                 <AttachmentIcon /> Documentar
                               </Link>
                             </Button>
@@ -246,12 +246,12 @@ const Vista = () => {
                               bgColor="yellow.50"
                               color="yellow.600"
                               mr="10px"
+                              onClick={() => getPacsbyId(pac.idactividad)}
                             >
-                              <Link to="/PAC/editar/:objeto">
+                              
                                 <EditIcon />
-                              </Link>
+                              
                             </Button>
-                            {/* el boton de eliminar no cache como hacer */}
                             <Button
                               variant="solid"
                               w="50px"

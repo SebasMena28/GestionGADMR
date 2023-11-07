@@ -15,7 +15,7 @@ export const PACProvider = ({ children }) => {
   const [usuario, setUsuario] = useState([]);
 
   const getPacs = async (user) => {
-    const { error, data } = await supabase.from("actividades").select().eq("usuario", user);
+    const { error, data } = await supabase.from("actividades").select().eq("usuario", user).order("fechacreacion", {ascending: false});
     //const result = await supabase.from("actividades").select().eq("columna", "dato").eq("columna", "dato").order("id", {ascending: true})
     if (error) throw error;
     setPacs(data);
@@ -43,7 +43,7 @@ export const PACProvider = ({ children }) => {
       .eq("idactividad", id);
     //const result = await supabase.from("actividades").select().eq("columna", "dato").eq("columna", "dato").order("id", {ascending: true})
     if (error) throw error;
-    //console.log(data);
+    console.log(data);
     navigate(`/PAC/editar/:${data[0].idactividad}`);
   };
 
@@ -53,8 +53,10 @@ export const PACProvider = ({ children }) => {
       .select()
       .eq("idactividad", id);
     if (error) throw error;
-    //console.log(data)
+    console.log(data)
     setPacs(data);
+    //setPacs(pacs.filter((pac) => pac.idactividad === id));
+    console.log(pacs)
   };
 
   const deletePacs = async (id, name) => {

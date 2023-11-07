@@ -66,7 +66,7 @@ export const downloadFile = async (name, path) => {
 export const urlFile = async (name, path) => {
   try {
     const { data, error } = await supabase.storage
-      .from("Documentos")
+      .from(name)
       .createSignedUrl(path, 180);
     if (error) throw new Error("Hay un problema :(");
     return data;
@@ -76,6 +76,7 @@ export const urlFile = async (name, path) => {
 };
 
 export const uploadFiletoBucket = async (name, path, file) => {
+  console.log(name, path, file)
   try {
     const { data, error } = await supabase.storage
       .from(name)

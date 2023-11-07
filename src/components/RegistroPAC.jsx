@@ -308,7 +308,7 @@ const Formulario = () => {
                       </FormControl>
                     </GridItem>
                     <GridItem colSpan={4} p="10px">
-                      <FormControl id="idproyecto" isRequired="true">
+                    <FormControl id="idproyecto" isRequired="true">
                         <FormLabel>Proyecto: </FormLabel>
                         <Select
                           name="idproyecto"
@@ -318,12 +318,14 @@ const Formulario = () => {
                           placeholder="Proyecto al que se vincula la actividad"
                         >
                           <option selected value="1">
-                            Proyecto 1
+                          MANTENIMIENTO Y REPARACION DE VIAS URBANAS
                           </option>
-                          <option value="2">Proyecto 2</option>
-                          <option value="3">Proyecto 3</option>
+                          <option value="2">CONSTRUCCION Y MEJORAMIENTO DE ESPACIOS RECREATIVOS, DEPORTIVOS Y CULTURALES</option>
+                          <option value="3">CONSTRUCCION Y MEJORAMIENTO DE INFRAESTRUCTURA FISICA CANTONAL </option>
+                          <option value="4">DOTACIÓN DE INFRAESTRUCTURA HIDROSANITARIA PARA EL CANTÓN RIOBAMBA </option>
+                          <option value="5">FORTALECIMIENTO Y DESARROLLO DE PARROQUIAS RURALES </option>
                         </Select>
-                      </FormControl>
+                      </FormControl>
                       <FormControl id="detalle" isRequired="true">
                         <FormLabel>Detalle de la actividad: </FormLabel>
                         <Textarea

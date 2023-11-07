@@ -45,33 +45,60 @@ import {
 const EditarForm = () => {
   const { objeto } = useParams();
   const { pacs, obtenerbyId, editPacs } = usePAC();
+  const datos = pacs.find(pac => pac.idactividad == objeto.slice(1));
+  //console.log(datos)
 
   useEffect(() => {
     const id = objeto.slice(1);
+    //console.log(id)
     obtenerbyId(id);
+    console.log(pacs[0].idproyecto)
+    //const datos = pacs.find(pac => pac.idactividad == id);
+    //console.log(datos)
   }, []);
 
   const initialState = {
-    idproyecto: pacs[0].idproyecto,
-    idtecnico: pacs[0].idtecnico,
-    iddireccion: pacs[0].iddireccion,
-    idtipocompra: pacs[0].idtipocompra,
-    idunidad: pacs[0].idunidad,
-    idperiodos: pacs[0].idperiodos,
-    idproceso: pacs[0].idproceso,
-    idfondobid: pacs[0].idfondobid,
-    idtipopresupuesto: pacs[0].idtipopresupuesto,
-    idregimen: pacs[0].idregimen,
-    idtipoproducto: pacs[0].idtipoproducto,
-    anio: pacs[0].anio,
-    partidapresupuestaria: pacs[0].partidapresupuestaria,
-    cpc: pacs[0].cpc,
-    detalle: pacs[0].detalle,
-    cantidad: pacs[0].cantidad,
-    costounitario: pacs[0].costounitario,
-    subtotal: pacs[0].subtotal,
-    catalogoelectronico: pacs[0].catalogoelectronico,
-    fechacreacion: pacs[0].fechacreacion,
+    idproyecto: datos.idproyecto,
+    idtecnico: datos.idtecnico,
+    iddireccion: datos.iddireccion,
+    idtipocompra: datos.idtipocompra,
+    idunidad: datos.idunidad,
+    idperiodos: datos.idperiodos,
+    idproceso: datos.idproceso,
+    idfondobid: datos.idfondobid,
+    idtipopresupuesto: datos.idtipopresupuesto,
+    idregimen: datos.idregimen,
+    idtipoproducto: datos.idtipoproducto,
+    anio: datos.anio,
+    partidapresupuestaria: datos.partidapresupuestaria,
+    cpc: datos.cpc,
+    detalle: datos.detalle,
+    cantidad: datos.cantidad,
+    costounitario: datos.costounitario,
+    subtotal: datos.subtotal,
+    catalogoelectronico: datos.catalogoelectronico,
+    fechacreacion: datos.fechacreacion,
+    
+    /*idproyecto: '',
+    idtecnico: '',
+    iddireccion: '',
+    idtipocompra: '',
+    idunidad: '',
+    idperiodos: '',
+    idproceso: '',
+    idfondobid: '',
+    idtipopresupuesto: '',
+    idregimen: '',
+    idtipoproducto: '',
+    anio: '',
+    partidapresupuestaria: '',
+    cpc: '',
+    detalle: '',
+    cantidad: '',
+    costounitario: '',
+    subtotal: '',
+    catalogoelectronico: '',
+    fechacreacion: '',*/
   };
 
   const { formValues, handleInput } = useForm(initialState);
@@ -328,6 +355,8 @@ const EditarForm = () => {
                           </option>
                           <option value="2">Proyecto 2</option>
                           <option value="3">Proyecto 3</option>
+                          <option value="4">Proyecto 4</option>
+                          <option value="5">Proyecto 5</option>
                         </Select>
                       </FormControl>
                       <FormControl id="detalle" isRequired="true">
